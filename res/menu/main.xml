@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.hfdemo.filesharedemo.MainActivity" >
+
+    <item
+        android:id="@+id/action_share_with_pc_apache"
+        android:orderInCategory="100"
+        android:title="@string/action_share_with_pc_apache"/>
+    <item
+        android:id="@+id/action_share_with_pc_swiftp"
+        android:orderInCategory="100"
+        android:title="@string/action_share_with_pc_swiftp"/>
+    <item
+        android:id="@+id/action_ftp_client"
+        android:orderInCategory="100"
+        android:title="@string/action_ftp_client"/>
+
+</menu>

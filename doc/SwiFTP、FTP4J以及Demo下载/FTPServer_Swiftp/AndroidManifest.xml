@@ -1,0 +1,74 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.swiftp_2"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+    <!--
+      This package contains an application...  The 'label' is the name
+         to display to the user for the overall application, and provides
+         a default label for all following components.  The syntax here is a
+         reference to one of our string resources.
+    -->
+    <application
+        android:icon="@drawable/icon_v2_0"
+        android:label="@string/swiftp_name" >
+
+        <!--
+             An Activity in the application - this is something the user
+             can launch and interact with.  The "name" attribute is the
+             name of the class within your package that implements this
+             activity.
+        -->
+        <activity android:name="ServerControlActivity" >
+
+            <!--
+                 An IntentFilter tells the system when it should use your
+                 activity.  This allows the user to get to your activity
+                 without someone having to explicitly know to launch your
+                 class "com.examplel.android.skeletonapp.SkeletonActivity".
+            -->
+            <intent-filter>
+
+                <!--
+                     The MAIN action describes a main entry point into an
+                     activity, without any associated data.
+                -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- This places this activity into the main app list. -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ConfigureActivity"
+            class=".ConfigureActivity" />
+
+        <service android:name=".FTPServerService" />
+
+        <!-- <receiver -->
+        <!-- android:label="@string/wifi_state_receiver_label" -->
+        <!-- android:name="org.swiftp.WifiStateReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" -->
+        <!-- > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.wifi.WifiManager.STATE_CHANGE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+
+</manifest>

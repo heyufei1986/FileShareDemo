@@ -124,6 +124,18 @@ public class SmbClientActivity extends Activity
 	 * System properties as will any -Dfull.property.name=value VM parameters
 	 * which in turn may then be overridden by the direct manipulation of
 	 * properties using the Config class.
+	 * More informations: see http://jcifs.samba.org/src/docs/api/overview-summary.html#scp
 	 */
+
+	//Setting Name Resolution Properties
+	/**
+	 * Server names can be resolved using NetBIOS broadcast queries, WINS
+	 * queries, lmhosts files, or DNS. The individual methods as well as the
+	 * order in which they will be used can be set using the jcifs.resolveOrder
+	 * property. Several other properties are important to how server names are
+	 * resolved and are discussed below.
+	 */
+	
+
 
 }

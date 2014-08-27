@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.hfdemo.filesharedemo.MainActivity" >
+
+    <item
+        android:id="@+id/smb_client_settings"
+        android:orderInCategory="100"
+        android:title="设置"/>
+
+</menu>

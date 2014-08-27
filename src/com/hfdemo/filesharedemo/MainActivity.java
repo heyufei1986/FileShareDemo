@@ -2,6 +2,7 @@ package com.hfdemo.filesharedemo;
 
 import com.hfdemo.filesharedemo.ftp.ftpclient.FtpClientActivity;
 import com.hfdemo.filesharedemo.ftp.ftpserver.FtpServerActivity;
+import com.hfdemo.filesharedemo.smb.SmbClientActivity;
 
 import be.ppareit.swiftp.gui.FsPreferenceActivity;
 import android.app.Activity;
@@ -48,6 +49,12 @@ public class MainActivity extends Activity {
 		else if (id == R.id.action_ftp_client) {
 			Intent intent = new Intent();
 			intent.setClass(this, FtpClientActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		else if (id == R.id.action_smb_client) {
+			Intent intent = new Intent();
+			intent.setClass(this, SmbClientActivity.class);
 			startActivity(intent);
 			return true;
 		}

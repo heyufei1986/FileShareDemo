@@ -15,5 +15,11 @@
         android:id="@+id/action_ftp_client"
         android:orderInCategory="100"
         android:title="@string/action_ftp_client"/>
+    
+        <item
+        android:id="@+id/action_smb_client"
+        android:orderInCategory="100"
+        android:title="Smb客户端演示"/>
+    
 
 </menu>

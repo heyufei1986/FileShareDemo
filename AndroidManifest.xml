@@ -21,7 +21,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:name="com.hfdemo.filesharedemo.FsApp"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:debuggable="true" >
         <activity
             android:name="com.hfdemo.filesharedemo.MainActivity"
             android:label="@string/app_name" >
@@ -57,6 +58,13 @@
             </intent-filter>
         </activity>
         
+		<activity
+            android:name="com.hfdemo.filesharedemo.smb.SmbClientActivity"
+            android:label="Smb客户端示例">
+            <intent-filter>
+                <action android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
         
         <service android:name="be.ppareit.swiftp.FsService" />

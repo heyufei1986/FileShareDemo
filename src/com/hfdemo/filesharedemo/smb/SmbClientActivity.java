@@ -1,92 +1,89 @@
 package com.hfdemo.filesharedemo.smb;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbFile;
-import jcifs.smb.SmbFileInputStream;
 
-import org.apache.ftpserver.FtpServer;
-import org.apache.ftpserver.FtpServerFactory;
-import org.apache.ftpserver.ftplet.FtpException;
-import org.apache.ftpserver.listener.ListenerFactory;
-import org.apache.ftpserver.ssl.SslConfigurationFactory;
-import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
 
 import com.hfdemo.filesharedemo.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 public class SmbClientActivity extends Activity
 {
-
-
-	private FtpServer	mFtpServer;
-	private String		ftpConfigDir	= Environment.getExternalStorageDirectory().getAbsolutePath() + "/ftpConfig/";
-
+	private JCIFSHelper	mJCIFSHelper;
+	private FileBrowserView mFilebrowserView;
+	private FileBrowserAdapter mFileBrowserAdapter;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ftp_server_activity);
-
-		downloadOneFile();
-	}
-
-	void downloadOneFile()
-	{
-		jcifs.Config.setProperty("jcifs.netbios.wins", "192.168.1.220");
-		NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("domain", "username", "password");
-
-		SmbFile sbmFile = null;
-		SmbFileInputStream in = null;
-
-		try
-		{
-			sbmFile = new SmbFile("smb://host/c/My Documents/somefile.txt", auth);
-			in = new SmbFileInputStream(sbmFile);
-
-			byte[] b = new byte[8192];
-			int n;
-			while ((n = in.read(b)) > 0)
-			{
-				System.out.write(b, 0, n);
-			}
-		}
-		catch (Exception e)
-		{
-
-		}
-
-
+		
+		mFilebrowserView = new FileBrowserView(this);
+		View view = mFilebrowserView.getView();
+		setContentView(view);
+		
+		
+		mFileBrowserAdapter = new FileBrowserAdapter(this);
+		mFilebrowserView.setFileBrowserAdapter(mFileBrowserAdapter);
+		
+		openSettingDialog();
 	}
 
 	@Override
 	protected void onDestroy()
 	{
 		super.onDestroy();
-
-		if (null != mFtpServer)
-		{
-			mFtpServer.stop();
-			mFtpServer = null;
-		}
 	}
 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.smb_client_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.smb_client_settings) {
+			openSettingDialog();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	void openSettingDialog() 
+	{
+		SmbLoginInfoSettingDialog dlg = new SmbLoginInfoSettingDialog(this);
+		dlg.setOnClickListener(new SmbLoginInfoSettingDialog.OnSmbLoginInfoSetListener()
+		{
+			
+			@Override
+			public void onSmbLoginInfoSetComplete(SmbLoginInfoSettingDialog dialog)
+			{
+				final String serverName = dialog.getServerName();
+				final String serverPort = dialog.getServerPort();
+				final String username = dialog.getUsername();
+				final String password = dialog.getPassword();
+				
+				mJCIFSHelper = new JCIFSHelper(serverName, serverPort, username, password);
+				mFileBrowserAdapter.setJCIFSHelper(mJCIFSHelper);
+			}
+		});
+		
+		dlg.show();
+	}
+	
 	// Setting Client Properties
 	/**
 	 * It may be necessary to set various properties for the client to function

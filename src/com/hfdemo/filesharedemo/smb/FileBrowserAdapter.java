@@ -154,6 +154,7 @@ public class FileBrowserAdapter extends BaseAdapter{
 			public void run()
 			{
 				SmbFile smbFile = mJCIFSHelper.getSmbFile(mPendingPath);
+				Log.d(TAG, "scanFolder complete path:" + mJCIFSHelper.getSmbFilePathAsSt(mPendingPath));
 
 				try
 				{

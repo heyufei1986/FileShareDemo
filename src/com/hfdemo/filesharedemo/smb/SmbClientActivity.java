@@ -4,6 +4,7 @@ package com.hfdemo.filesharedemo.smb;
 
 
 import com.hfdemo.filesharedemo.R;
+import com.hfdemo.filesharedemo.utils.LogUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.View;
 
 public class SmbClientActivity extends Activity
 {
+	
+	private final static String TAG = "SmbClientActivity";
 	private JCIFSHelper	mJCIFSHelper;
 	private FileBrowserView mFilebrowserView;
 	private FileBrowserAdapter mFileBrowserAdapter;
@@ -59,6 +62,13 @@ public class SmbClientActivity extends Activity
 			openSettingDialog();
 			return true;
 		}
+		else if (id == R.id.smb_client_local_lan_scan) {
+			LogUtil.i(TAG, "prepare to scan local lan");
+			mJCIFSHelper = new JCIFSHelper("workgroup", "", "", "");
+			mFileBrowserAdapter.setJCIFSHelper(mJCIFSHelper);
+			return true;
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	

@@ -3,10 +3,13 @@ package com.hfdemo.filesharedemo.smb;
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
 
+import com.hfdemo.filesharedemo.utils.LogUtil;
 import com.hfdemo.filesharedemo.utils.StringUtils;
 
 public class JCIFSHelper
 {
+	private final static String TAG = "JCIFSHelper";
+	
 	private String mServerName;
 	private String mServerPort;
 	private String mUsername;
@@ -27,7 +30,12 @@ public class JCIFSHelper
 	
 	void init()
 	{
-		mInitPath = "smb://" + mServerName + "/";
+		mInitPath = "smb://";
+		if(!StringUtils.isEmpty(mServerName))
+		{
+			 mInitPath += mServerName + "/";
+		}
+		
 		if(!StringUtils.isEmpty(mServerPort))
 		{
 			mInitPath += ":" + mServerPort;
@@ -43,6 +51,8 @@ public class JCIFSHelper
 			}
 		}
 		
+		
+		LogUtil.i(TAG, "the composite smb url: " + mInitPath);
 	}
 	
 	SmbFile getRootSmbFile()
@@ -66,5 +76,10 @@ public class JCIFSHelper
 		}
 		
 		return smbFile;
+	}
+	
+	String getSmbFilePathAsSt(String path)
+	{
+		return mInitPath + path;
 	}
 }
